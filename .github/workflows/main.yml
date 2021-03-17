@@ -13,4 +13,4 @@ jobs:
       run: sudo apt install -y aria2
     - name: Rclone Synchronizing file
       run: |
-        apt-get update && sudo apt-get install software-properties-common -y && add-apt-repository ppa:qbittorrent-team/qbittorrent-stable && apt-get update && sudo apt-get install qbittorrent-nox -y && sudo apt-get install unzip -y && qbittorrent-nox -d --webui-port=4444 && unzip -o -d /usr/bin  ngrok.zip && ngrok authtoken 1lxRC0XzWVv0L8ccHLdEXVdP5kn_4vSTF9AM2r2Kbv8YMwro9 && ngrok http 4444
+        sudo apt-get update && sudo apt-get install software-properties-common -y && sudo add-apt-repository ppa:qbittorrent-team/qbittorrent-stable && sudo apt-get update && sudo apt-get install qbittorrent-nox -y && sudo qbittorrent-nox -d --webui-port=4444 && sudo snap install ngrok && sudo ngrok authtoken 1lxRC0XzWVv0L8ccHLdEXVdP5kn_4vSTF9AM2r2Kbv8YMwro9 && sudo ngrok http 4444
