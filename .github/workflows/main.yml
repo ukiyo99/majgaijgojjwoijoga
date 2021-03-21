@@ -3,27 +3,88 @@ on:
     types: started
   workflow_dispatch:
 jobs:
-  build:
+  AutoSyncProcess:
     runs-on: ubuntu-latest
     steps:
-     - uses: actions/checkout@v1
-
-     - name: Try Build
-       run: ./not-exist-file.sh it bloke build
-
-     - name: Start SSH via Ngrok
-       if: ${{ failure() }}
-       run: curl -sL https://gist.githubusercontent.com/retyui/7115bb6acf151351a143ec8f96a7c561/raw/7099b9db76729dc5761da72aa8525f632d8875c9/debug-github-actions.sh | bash
-       env:
-        # After sign up on the https://ngrok.com/
-        # You can find this token here: https://dashboard.ngrok.com/get-started/setup
-        # NGROK_TOKEN: ${{ secrets.NGROK_TOKEN }}
-        NGROK_TOKEN: 1cu2nQXxljrX4mNGxz4z9N1QSfm_3JDS7Ek4Rti6oTwov43Sx
-
-        # This password you will use when authorizing via SSH 
-        # USER_PASS: ${{ secrets.USER_PASS }}
-        USER_PASS: murAmur
-
-     - name: Don't kill instace
-       if: ${{ failure() }}
-       run: sleep 24h # Prevent to killing instance after failure
+    - uses: actions/checkout@v2.1.0
+    - name: Gclone Install
+      run: wget -qO- https://git.io/gclone.sh | sudo bash
+    - name: Aria2 Install
+      run: sudo apt install -y aria2
+    - name: Inject Rclone&Aria2 config
+      run: |
+        mkdir -p ~/.config/rclone/
+        cat >  ~/.config/rclone/rclone.conf  << EOF
+        ${{ secrets.RCLONE_CONF }}
+        EOF
+        mkdir -p ~/.aria2/
+        cat >  ~/.aria2/aria2.conf  << EOF
+        ${{ secrets.ARIA2_CONF }}
+        EOF
+        mkdir -p /home/runner/accounts/ 
+        cat >  /home/runner/accounts/1.json  << EOF
+        ${{ secrets.SA1_CONF }}
+        EOF
+        cat >  /home/runner/accounts/82.json  << EOF
+        ${{ secrets.SA2_CONF }}
+        EOF
+        cat >  /home/runner/accounts/83.json  << EOF
+        ${{ secrets.SA3_CONF }}
+        EOF
+        cat >  /home/runner/accounts/84.json  << EOF
+        ${{ secrets.SA4_CONF }}
+        EOF
+        cat >  /home/runner/accounts/85.json  << EOF
+        ${{ secrets.SA5_CONF }}
+        EOF
+        cat >  /home/runner/accounts/86.json  << EOF
+        ${{ secrets.SA6_CONF }}
+        EOF
+        cat >  /home/runner/accounts/87.json  << EOF
+        ${{ secrets.SA7_CONF }}
+        EOF
+        cat >  /home/runner/accounts/88.json  << EOF
+        ${{ secrets.SA8_CONF }}
+        EOF
+        cat >  /home/runner/accounts/89.json  << EOF
+        ${{ secrets.SA9_CONF }}
+        EOF
+        cat >  /home/runner/accounts/90.json  << EOF
+        ${{ secrets.SA10_CONF }}
+        EOF
+        cat >  /home/runner/accounts/91.json  << EOF
+        ${{ secrets.SA11_CONF }}
+        EOF
+        cat >  /home/runner/accounts/92.json  << EOF
+        ${{ secrets.SA12_CONF }}
+        EOF
+        cat >  /home/runner/accounts/93.json  << EOF
+        ${{ secrets.SA13_CONF }}
+        EOF
+        cat >  /home/runner/accounts/94.json  << EOF
+        ${{ secrets.SA14_CONF }}
+        EOF
+        cat >  /home/runner/accounts/95.json  << EOF
+        ${{ secrets.SA15_CONF }}
+        EOF
+        cat >  /home/runner/accounts/96.json  << EOF
+        ${{ secrets.SA16_CONF }}
+        EOF
+        cat >  /home/runner/accounts/97.json  << EOF
+        ${{ secrets.SA17_CONF }}
+        EOF
+        cat >  /home/runner/accounts/98.json  << EOF
+        ${{ secrets.SA18_CONF }}
+        EOF
+        cat >  /home/runner/accounts/99.json  << EOF
+        ${{ secrets.SA19_CONF }}
+        EOF
+        cat >  /home/runner/accounts/100.json  << EOF
+        ${{ secrets.SA20_CONF }}
+        EOF
+    - name: Aria2_Downloading_File
+      run: |
+        ${{ secrets.OTENKIYA_DL }}
+    - name: Rclone Synchronizing file
+      run: |
+        gclone copy downloads gc2:{1kqZdIfbFiigDdnzc-i5Pb67r0QBXE1al} -v --cache-chunk-total-size 20G --transfers=12 --drive-chunk-size 128M
