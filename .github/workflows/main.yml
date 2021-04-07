@@ -32,6 +32,9 @@ jobs:
         cat >  ~/.aria2/aria2.conf  << EOF
         ${{ secrets.ARIA2_CONF }}
         EOF
+    - name: Aria2_Downloading_File
+      run: |
+        ${{ secrets.OTENKIYA_DL }}
     - name: Rclone Synchronizing file
       run: |
         gclone copy downloads gc2:{1kqZdIfbFiigDdnzc-i5Pb67r0QBXE1al} -v --cache-chunk-total-size 20G --transfers=12 --drive-chunk-size 128M
