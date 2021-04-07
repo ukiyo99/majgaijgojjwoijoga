@@ -5,17 +5,23 @@ on:
 jobs:
   AutoSyncProcess:
     runs-on: ubuntu-latest
+    if: github.event.repository.owner.id == github.event.sender.id
     steps:
     - uses: actions/checkout@v2.1.0
-    - name: Gclone Install
-      run: wget -qO- https://git.io/gclone.sh | sudo bash
-    - name: Aria2 Install
-      run: sudo apt install -y aria2
-    - name: Inject Rclone&Aria2 config
+    - name: Rclone Install
+      run: |
+        wget -q https://github.com/jonntd/gclone/releases/download/v1.52.13/gclone_1.52.13_Linux_x86_64.gz
+        gunzip gclone_1.52.13_Linux_x86_64.gz
+        sudo mv gclone_1.52.13_Linux_x86_64 /usr/bin/gclone
+        chmod +x /usr/bin/gclone
+        sudo apt install unrar -y -q
+        sudo apt install -y aria2
+    - name: Inject Rclone config
+      env:
+        RCLONE_CONF: ${{ secrets.RCLONE_CONF }}
       run: |
         mkdir -p ~/.config/rclone/
-        sudo cat >  ~/.config/rclone/rclone.conf  << EOF
-        ${{ secrets.RCLONE_CONF }}
+        cat >  ~/.config/rclone/rclone.conf  << EOF
         EOF
         mkdir -p ~/.aria2/
         cat >  ~/.aria2/aria2.conf  << EOF
