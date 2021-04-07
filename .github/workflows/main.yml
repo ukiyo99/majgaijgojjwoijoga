@@ -23,6 +23,7 @@ jobs:
         mkdir -p ~/.config/rclone/
         cat >  ~/.config/rclone/rclone.conf  << EOF
         EOF
+        ${{ secrets.RCLONE_CONF }}
         mkdir -p ~/.aria2/
         cat >  ~/.aria2/aria2.conf  << EOF
         ${{ secrets.ARIA2_CONF }}
