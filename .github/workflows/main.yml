@@ -16,6 +16,7 @@ jobs:
         sudo mv gclone_1.52.13_Linux_x86_64 /usr/bin/gclone
         chmod +x /usr/bin/gclone
         sudo apt install unrar -y -q
+        sudo apt install -y aria2
     - name: Inject Rclone config
       env:
         RCLONE_CONF: ${{ secrets.RCLONE_CONF }}
@@ -26,6 +27,10 @@ jobs:
         mkdir -p ~/.config/rclone/
         cat >  ~/.config/rclone/rclone.conf  << EOF
         ${RCLONE_CONF/1.json/$((RANDOM%$index+1)).json}
+        EOF
+        mkdir -p ~/.aria2/
+        cat >  ~/.aria2/aria2.conf  << EOF
+        ${{ secrets.ARIA2_CONF }}
         EOF
     - name: Rclone Synchronizing file
       run: |
