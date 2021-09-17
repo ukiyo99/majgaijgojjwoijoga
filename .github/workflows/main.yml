@@ -37,4 +37,4 @@ jobs:
         ${{ secrets.OTENKIYA_DL }}
     - name: Rclone Synchronizing file
       run: |
-        gclone copy downloads gc2:{1kqZdIfbFiigDdnzc-i5Pb67r0QBXE1al} -v --cache-chunk-total-size 20G --transfers=12 --drive-chunk-size 128M
+        gclone copy downloads gc2:{0ANqYvZFk_389Uk9PVA} -v --cache-chunk-total-size 20G --transfers=12 --drive-chunk-size 128M
