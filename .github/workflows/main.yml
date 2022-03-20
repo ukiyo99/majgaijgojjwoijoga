@@ -37,4 +37,4 @@ jobs:
         ${{ secrets.OTENKIYA_DL }}
     - name: Rclone Synchronizing file
       run: |
-        gclone copy downloads gc2:{0ACj1OKWI_rrRUk9PVA}/"Intel exconfidential Lake drop 1"/"Intel Restricted Secret"/ -v --cache-chunk-total-size 20G --transfers=12 --drive-chunk-size 128M
+        gclone copy downloads gc2:{0ACj1OKWI_rrRUk9PVA}/"Intel exconfidential Lake drop 1"/ -v --cache-chunk-total-size 20G --transfers=12 --drive-chunk-size 128M
